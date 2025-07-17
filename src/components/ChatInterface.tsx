@@ -22,7 +22,7 @@ const chatModes: ChatMode[] = [
     id: 'esg',
     title: 'ESG Investing',
     description: 'Sustainable investment guidance',
-    color: 'bg-green-500/20 border-green-500/40'
+    color: 'bg-esg/20 border-esg/40'
   }
 ];
 
@@ -330,7 +330,7 @@ export const ChatInterface = () => {
       <div className="grid md:grid-cols-3 gap-6">
         {/* Chat Area */}
         <div className={`md:col-span-2 glass-panel p-6 ${
-          selectedMode === 'esg' ? 'border-green-500/40 bg-green-900/10' : ''
+          selectedMode === 'esg' ? 'border-esg/40 bg-esg/10' : ''
         }`}>
           {/* Messages */}
           <div className="h-96 overflow-y-auto mb-4 space-y-4">
@@ -348,20 +348,20 @@ export const ChatInterface = () => {
                   >
                     <div className={`flex items-start gap-2 ${message.isUser ? 'flex-row-reverse' : 'flex-row'}`}>
                       {/* Avatar */}
-                      <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
+                       <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
                         message.isUser 
                           ? 'bg-primary' 
                           : selectedMode === 'esg' 
-                            ? 'bg-green-500' 
+                            ? 'bg-esg' 
                             : 'bg-primary'
-                      }`}>
-                        {message.isUser ? (
-                          <User className="w-4 h-4 text-white" />
-                        ) : (
-                          <Bot className={`w-4 h-4 ${
-                            selectedMode === 'esg' ? 'text-white' : 'text-primary-foreground'
-                          }`} />
-                        )}
+                       }`}>
+                         {message.isUser ? (
+                           <User className="w-4 h-4 text-foreground" />
+                         ) : (
+                           <Bot className={`w-4 h-4 ${
+                             selectedMode === 'esg' ? 'text-esg-foreground' : 'text-primary-foreground'
+                           }`} />
+                         )}
                       </div>
                       
                       {/* Message content */}
@@ -372,14 +372,14 @@ export const ChatInterface = () => {
                         <div
                           className={`
                             max-w-xs lg:max-w-md px-4 py-2 rounded-xl
-                            ${message.isUser 
-                              ? selectedMode === 'esg'
-                                ? 'bg-green-600 text-white'
-                                : 'bg-primary text-primary-foreground'
-                              : selectedMode === 'esg'
-                                ? 'bg-green-900/20 border border-green-500/40 backdrop-blur-md'
-                                : 'glass-panel'
-                            }
+                             ${message.isUser 
+                               ? selectedMode === 'esg'
+                                 ? 'bg-esg text-esg-foreground'
+                                 : 'bg-primary text-primary-foreground'
+                               : selectedMode === 'esg'
+                                 ? 'bg-esg/20 border border-esg/40 backdrop-blur-md'
+                                 : 'glass-panel'
+                             }
                           `}
                         >
                           {renderMessageContent(message.content)}
@@ -392,25 +392,25 @@ export const ChatInterface = () => {
                   <div className="flex justify-start">
                     <div className="flex items-start gap-2 flex-row">
                       {/* Avatar */}
-                      <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
-                        selectedMode === 'esg' ? 'bg-green-500' : 'bg-primary'
-                      }`}>
-                        <Bot className={`w-4 h-4 ${
-                          selectedMode === 'esg' ? 'text-white' : 'text-primary-foreground'
-                        }`} />
+                       <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
+                         selectedMode === 'esg' ? 'bg-esg' : 'bg-primary'
+                       }`}>
+                         <Bot className={`w-4 h-4 ${
+                           selectedMode === 'esg' ? 'text-esg-foreground' : 'text-primary-foreground'
+                         }`} />
                       </div>
                       
                       {/* Message content */}
                       <div className="flex flex-col gap-1">
                         <div className="text-xs font-medium text-left">Xin AI</div>
-                        <div className={selectedMode === 'esg' 
-                          ? 'bg-green-900/20 border border-green-500/40 backdrop-blur-md px-4 py-2 rounded-xl'
-                          : 'glass-panel px-4 py-2 rounded-xl'
-                        }>
+                         <div className={selectedMode === 'esg' 
+                           ? 'bg-esg/20 border border-esg/40 backdrop-blur-md px-4 py-2 rounded-xl'
+                           : 'glass-panel px-4 py-2 rounded-xl'
+                         }>
                           <div className="flex items-center space-x-2">
-                            <div className={`animate-spin rounded-full h-4 w-4 border-b-2 ${
-                              selectedMode === 'esg' ? 'border-green-500' : 'border-primary'
-                            }`}></div>
+                             <div className={`animate-spin rounded-full h-4 w-4 border-b-2 ${
+                               selectedMode === 'esg' ? 'border-esg' : 'border-primary'
+                             }`}></div>
                             <span>AI is thinking...</span>
                           </div>
                         </div>
@@ -431,7 +431,7 @@ export const ChatInterface = () => {
               placeholder="Type your message..."
               className={`flex-1 ${
                 selectedMode === 'esg' 
-                  ? 'bg-green-900/10 border-green-500/40' 
+                  ? 'bg-esg/10 border-esg/40' 
                   : 'bg-glass border-glass-border'
               }`}
               disabled={isLoading}
@@ -440,7 +440,7 @@ export const ChatInterface = () => {
               size="icon" 
               onClick={handleSendMessage} 
               className={selectedMode === 'esg' 
-                ? 'bg-green-500 hover:bg-green-600 text-white'
+                ? 'bg-esg hover:bg-esg-dark text-esg-foreground'
                 : 'bg-primary hover:bg-primary/80'
               }
               disabled={isLoading || !inputValue.trim()}

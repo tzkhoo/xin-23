@@ -38,6 +38,12 @@
     --accent: 315 60% 60%; /* Pinkish purple */
     --accent-foreground: 0 0% 98%;
 
+    /* ESG Green - HSL colors for iOS compatibility */
+    --esg: 142 75% 45%; /* ESG green */
+    --esg-light: 142 60% 55%; /* Light ESG green */
+    --esg-dark: 142 80% 35%; /* Dark ESG green */
+    --esg-foreground: 0 0% 98%;
+
     /* Destructive */
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
