@@ -27,7 +27,7 @@ const Index = () => {
           </h1>
           
           <p className="text-xl md:text-2xl text-muted-foreground mb-2">
-            Your BOCHK AI Agent
+            BOCHK AI Agent - by HKUSTeam
           </p>
           
           <div className="w-24 h-1 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto"></div>
