@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { Send, Bot, User, Expand, Zap } from 'lucide-react';
+import { Send, Bot, User, Expand, Zap, Building2, Users, Crown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
-import { Slider } from '@/components/ui/slider';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { ParentDashboard } from './ParentDashboard';
 import { RMDashboard } from './RMDashboard';
@@ -55,11 +54,39 @@ export const ChatInterface = () => {
     }
   };
 
-  const getThemeColors = () => {
-    if (userType === 1) return { primary: 'parent', bg: 'parent/5', border: 'parent/20' };
-    if (userType === 2) return { primary: 'rm', bg: 'rm/5', border: 'rm/20' };
-    if (isAdvancedMode) return { primary: 'advanced', bg: 'advanced/5', border: 'advanced/20' };
-    return { primary: 'primary', bg: 'primary/5', border: 'primary/20' };
+  const getThemeClasses = () => {
+    if (userType === 1) return {
+      primary: 'bg-parent',
+      primaryHover: 'hover:bg-parent/80',
+      text: 'text-parent',
+      bg: 'bg-parent/5',
+      border: 'border-parent/20',
+      foreground: 'text-parent-foreground'
+    };
+    if (userType === 2) return {
+      primary: 'bg-rm',
+      primaryHover: 'hover:bg-rm/80',
+      text: 'text-rm',
+      bg: 'bg-rm/5',
+      border: 'border-rm/20',
+      foreground: 'text-rm-foreground'
+    };
+    if (isAdvancedMode) return {
+      primary: 'bg-advanced',
+      primaryHover: 'hover:bg-advanced/80',
+      text: 'text-advanced',
+      bg: 'bg-advanced/5', 
+      border: 'border-advanced/20',
+      foreground: 'text-advanced-foreground'
+    };
+    return {
+      primary: 'bg-primary',
+      primaryHover: 'hover:bg-primary/80',
+      text: 'text-primary',
+      bg: 'bg-primary/5',
+      border: 'border-primary/20',
+      foreground: 'text-primary-foreground'
+    };
   };
 
   const handleSendMessage = async () => {
@@ -159,7 +186,7 @@ export const ChatInterface = () => {
   };
 
   const getRightPanelContent = () => {
-    const colors = getThemeColors();
+    const themeClasses = getThemeClasses();
     
     return (
       <div className="space-y-4">
@@ -167,7 +194,7 @@ export const ChatInterface = () => {
         <div className="grid grid-cols-2 gap-4">
           <div className="glass-panel p-4">
             <div className="text-sm text-muted-foreground">HSI</div>
-            <div className={`text-lg font-bold text-${colors.primary}`}>17,234</div>
+            <div className={`text-lg font-bold ${themeClasses.text}`}>17,234</div>
             <div className="text-xs text-green-400">+1.2%</div>
           </div>
           <div className="glass-panel p-4">
@@ -292,195 +319,244 @@ export const ChatInterface = () => {
     }).filter(Boolean);
   };
 
-  const colors = getThemeColors();
+  const themeClasses = getThemeClasses();
 
   // Show different views based on user type
   if (userType === 1) {
-    return <ParentDashboard />;
+    return (
+      <>
+        <ParentDashboard />
+        <PremiumUserTypeSlider userType={userType} setUserType={setUserType} />
+      </>
+    );
   }
   
   if (userType === 2) {
-    return <RMDashboard />;
+    return (
+      <>
+        <RMDashboard />
+        <PremiumUserTypeSlider userType={userType} setUserType={setUserType} />
+      </>
+    );
   }
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-6">
-      {/* Mode Selection - only show for Client view */}
-      <div className="grid grid-cols-1 gap-4 mb-6">
-        {chatModes.map((mode) => (
-          <button
-            key={mode.id}
-            onClick={() => setSelectedMode(mode.id)}
-            className={`
-              p-4 rounded-xl border backdrop-blur-md transition-all duration-300
-              ${selectedMode === mode.id 
-                ? `bg-${colors.primary}/20 border-${colors.primary}/40 shadow-glow scale-105` 
-                : 'bg-glass border-glass-border hover:scale-102'
-              }
-            `}
-          >
-            <div className="font-medium">{mode.title}</div>
-            <div className="text-xs text-muted-foreground mt-1">{mode.description}</div>
-          </button>
-        ))}
-      </div>
-
-      {/* Advanced Mode Toggle */}
-      <div className="flex items-center justify-center gap-3 mb-6">
-        <div className="flex items-center gap-2 p-3 rounded-lg bg-glass border border-glass-border">
-          <Zap className={`w-4 h-4 ${isAdvancedMode ? `text-${colors.primary}` : 'text-muted-foreground'}`} />
-          <span className="text-sm font-medium">Advanced Mode</span>
-          <Switch
-            checked={isAdvancedMode}
-            onCheckedChange={setIsAdvancedMode}
-          />
+    <>
+      <div className="w-full max-w-6xl mx-auto p-6">
+        {/* Mode Selection - only show for Client view */}
+        <div className="grid grid-cols-1 gap-4 mb-6">
+          {chatModes.map((mode) => (
+            <button
+              key={mode.id}
+              onClick={() => setSelectedMode(mode.id)}
+              className={`
+                p-4 rounded-xl border backdrop-blur-md transition-all duration-300
+                ${selectedMode === mode.id 
+                  ? `${themeClasses.bg} ${themeClasses.border} shadow-glow scale-105` 
+                  : 'bg-glass border-glass-border hover:scale-102'
+                }
+              `}
+            >
+              <div className="font-medium">{mode.title}</div>
+              <div className="text-xs text-muted-foreground mt-1">{mode.description}</div>
+            </button>
+          ))}
         </div>
-      </div>
 
-      {/* Chat Interface */}
-      <div className="grid md:grid-cols-3 gap-6">
-        {/* Chat Area */}
-        <div className={`md:col-span-2 glass-panel p-6 ${
-          isAdvancedMode ? `border-${colors.primary}/40 bg-${colors.bg}` : ''
-        }`}>
-          {/* Messages */}
-          <div className="h-96 overflow-y-auto mb-4 space-y-4">
-            {messages.length === 0 ? (
-              <div className="text-center text-muted-foreground py-16">
-                <div className="text-lg font-medium mb-2">Ready to assist you</div>
-                <div className="text-sm">Ask me anything about banking, finance, or investments</div>
-              </div>
-            ) : (
-              <>
-                {messages.map((message) => (
-                  <div
-                    key={message.id}
-                    className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
-                  >
-                    <div className={`flex items-start gap-2 ${message.isUser ? 'flex-row-reverse' : 'flex-row'}`}>
-                      {/* Avatar */}
-                       <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center bg-${colors.primary}`}>
-                         {message.isUser ? (
-                           <User className="w-4 h-4 text-foreground" />
-                         ) : (
-                           <Bot className={`w-4 h-4 text-${colors.primary}-foreground`} />
-                         )}
-                      </div>
-                      
-                      {/* Message content */}
-                      <div className="flex flex-col gap-1">
-                        <div className={`text-xs font-medium ${message.isUser ? 'text-right' : 'text-left'}`}>
-                          {message.isUser ? 'You' : 'Xin AI'}
+        {/* Chat Interface */}
+        <div className="grid md:grid-cols-3 gap-6">
+          {/* Chat Area */}
+          <div className={`md:col-span-2 glass-panel p-6 ${
+            isAdvancedMode ? `${themeClasses.border} ${themeClasses.bg}` : ''
+          }`}>
+            {/* Messages */}
+            <div className="h-96 overflow-y-auto mb-4 space-y-4">
+              {messages.length === 0 ? (
+                <div className="text-center text-muted-foreground py-16">
+                  <div className="text-lg font-medium mb-2">Ready to assist you</div>
+                  <div className="text-sm">Ask me anything about banking, finance, or investments</div>
+                </div>
+              ) : (
+                <>
+                  {messages.map((message) => (
+                    <div
+                      key={message.id}
+                      className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
+                    >
+                      <div className={`flex items-start gap-2 ${message.isUser ? 'flex-row-reverse' : 'flex-row'}`}>
+                        {/* Avatar */}
+                        <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${themeClasses.primary}`}>
+                          {message.isUser ? (
+                            <User className={`w-4 h-4 ${themeClasses.foreground}`} />
+                          ) : (
+                            <Bot className={`w-4 h-4 ${themeClasses.foreground} ${isAdvancedMode ? 'glow-effect' : ''}`} />
+                          )}
                         </div>
-                        <div
-                          className={`
-                            max-w-xs lg:max-w-md px-4 py-2 rounded-xl
-                             ${message.isUser 
-                               ? `bg-${colors.primary} text-${colors.primary}-foreground`
-                               : isAdvancedMode
-                                 ? `bg-${colors.primary}/20 border border-${colors.primary}/40 backdrop-blur-md`
-                                 : 'glass-panel'
-                             }
-                          `}
-                        >
-                          {renderMessageContent(message.content)}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                {isLoading && (
-                  <div className="flex justify-start">
-                    <div className="flex items-start gap-2 flex-row">
-                      {/* Avatar */}
-                       <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center bg-${colors.primary}`}>
-                         <Bot className={`w-4 h-4 text-${colors.primary}-foreground`} />
-                      </div>
-                      
-                      {/* Message content */}
-                      <div className="flex flex-col gap-1">
-                        <div className="text-xs font-medium text-left">Xin AI</div>
-                         <div className={isAdvancedMode 
-                           ? `bg-${colors.primary}/20 border border-${colors.primary}/40 backdrop-blur-md px-4 py-2 rounded-xl`
-                           : 'glass-panel px-4 py-2 rounded-xl'
-                         }>
-                          <div className="flex items-center space-x-2">
-                             <div className={`animate-spin rounded-full h-4 w-4 border-b-2 border-${colors.primary}`}></div>
-                            <span>AI is thinking...</span>
+                        
+                        {/* Message content */}
+                        <div className="flex flex-col gap-1">
+                          <div className={`text-xs font-medium ${message.isUser ? 'text-right' : 'text-left'}`}>
+                            {message.isUser ? 'You' : 'Xin AI'}
+                          </div>
+                          <div
+                            className={`
+                              max-w-xs lg:max-w-md px-4 py-2 rounded-xl
+                              ${message.isUser 
+                                ? `${themeClasses.primary} ${themeClasses.foreground}`
+                                : isAdvancedMode
+                                  ? `${themeClasses.bg} ${themeClasses.border} backdrop-blur-md border`
+                                  : 'glass-panel'
+                              }
+                            `}
+                          >
+                            {renderMessageContent(message.content)}
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                )}
-              </>
-            )}
+                  ))}
+                  {isLoading && (
+                    <div className="flex justify-start">
+                      <div className="flex items-start gap-2 flex-row">
+                        {/* Avatar */}
+                        <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${themeClasses.primary}`}>
+                          <Bot className={`w-4 h-4 ${themeClasses.foreground}`} />
+                        </div>
+                        
+                        {/* Message content */}
+                        <div className="flex flex-col gap-1">
+                          <div className="text-xs font-medium text-left">Xin AI</div>
+                          <div className={isAdvancedMode 
+                            ? `${themeClasses.bg} ${themeClasses.border} backdrop-blur-md px-4 py-2 rounded-xl border`
+                            : 'glass-panel px-4 py-2 rounded-xl'
+                          }>
+                            <div className="flex items-center space-x-2">
+                              <div className={`animate-spin rounded-full h-4 w-4 border-b-2 ${themeClasses.text.replace('text-', 'border-')}`}></div>
+                              <span>AI is thinking...</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+
+            {/* Advanced Mode Toggle */}
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="flex items-center gap-2 p-3 rounded-lg bg-glass border border-glass-border">
+                <Zap className={`w-4 h-4 ${isAdvancedMode ? themeClasses.text : 'text-muted-foreground'}`} />
+                <span className="text-sm font-medium">Advanced Mode</span>
+                <Switch
+                  checked={isAdvancedMode}
+                  onCheckedChange={setIsAdvancedMode}
+                />
+              </div>
+            </div>
+
+            {/* Input Area */}
+            <div className="flex gap-2">
+              <Input
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                placeholder="Type your message..."
+                className={`flex-1 ${
+                  isAdvancedMode 
+                    ? `${themeClasses.bg} ${themeClasses.border} border` 
+                    : 'bg-glass border-glass-border'
+                }`}
+                disabled={isLoading}
+              />
+              <Button 
+                size="icon" 
+                onClick={handleSendMessage} 
+                className={`${themeClasses.primary} ${themeClasses.primaryHover} ${themeClasses.foreground}`}
+                disabled={isLoading || !inputValue.trim()}
+              >
+                <Send className="w-4 h-4" />
+              </Button>
+            </div>
           </div>
 
-          {/* Input Area */}
-          <div className="flex gap-2">
-            <Input
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-              placeholder="Type your message..."
-              className={`flex-1 ${
-                isAdvancedMode 
-                  ? `bg-${colors.primary}/10 border-${colors.primary}/40` 
-                  : 'bg-glass border-glass-border'
-              }`}
-              disabled={isLoading}
-            />
-            <Button 
-              size="icon" 
-              onClick={handleSendMessage} 
-              className={`bg-${colors.primary} hover:bg-${colors.primary}/80`}
-              disabled={isLoading || !inputValue.trim()}
-            >
-              <Send className="w-4 h-4" />
-            </Button>
+          {/* Right Panel */}
+          <div className="glass-panel p-6">
+            {getRightPanelContent()}
           </div>
-        </div>
-
-        {/* Right Panel */}
-        <div className="glass-panel p-6">
-          {getRightPanelContent()}
         </div>
       </div>
+      
+      <PremiumUserTypeSlider userType={userType} setUserType={setUserType} />
+    </>
+  );
+};
 
-      {/* User Type Slider */}
-      <div className="mt-8 p-6 glass-panel">
-        <div className="text-center mb-4">
-          <h3 className="text-lg font-semibold mb-2">User Perspective</h3>
-          <p className="text-sm text-muted-foreground">Switch between different user views</p>
-        </div>
-        
-        <div className="max-w-md mx-auto">
-          <Slider
-            value={[userType]}
-            onValueChange={(value) => setUserType(value[0])}
-            max={2}
-            step={1}
-            className="mb-4"
+// Premium User Type Slider Component
+const PremiumUserTypeSlider = ({ userType, setUserType }: { userType: number, setUserType: (type: number) => void }) => {
+  const getUserIcon = (type: number) => {
+    switch(type) {
+      case 0: return Building2;
+      case 1: return Crown;
+      case 2: return Users;
+      default: return Building2;
+    }
+  };
+
+  const getSliderBg = () => {
+    switch(userType) {
+      case 0: return 'bg-gradient-to-r from-primary to-primary-glow';
+      case 1: return 'bg-gradient-to-r from-parent to-parent-light';
+      case 2: return 'bg-gradient-to-r from-rm to-rm-light';
+      default: return 'bg-gradient-to-r from-primary to-primary-glow';
+    }
+  };
+
+  return (
+    <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
+      <div className="bg-white/10 backdrop-blur-md rounded-full p-2 border border-white/20">
+        <div className="relative flex rounded-full overflow-hidden">
+          {/* Sliding background indicator */}
+          <div 
+            className={`absolute top-0 bottom-0 w-1/3 ${getSliderBg()} rounded-full transition-transform duration-300 ease-out`}
+            style={{ 
+              transform: `translateX(${userType * 100}%)` 
+            }}
           />
           
-          <div className="flex justify-between text-sm">
-            <span className={userType === 0 ? `text-${colors.primary} font-medium` : 'text-muted-foreground'}>
-              Client
-            </span>
-            <span className={userType === 1 ? 'text-parent font-medium' : 'text-muted-foreground'}>
-              Parents
-            </span>
-            <span className={userType === 2 ? 'text-rm font-medium' : 'text-muted-foreground'}>
-              Relation Manager
-            </span>
-          </div>
-          
-          <div className="text-center mt-2">
-            <span className="text-xs text-muted-foreground">
-              Current: <span className="font-medium">{getUserTypeLabel(userType)}</span>
-            </span>
-          </div>
+          {/* Option buttons */}
+          {[
+            { id: 0, label: 'BOCHK Client', icon: Building2 },
+            { id: 1, label: 'Parents', icon: Crown },
+            { id: 2, label: 'Relation Manager', icon: Users }
+          ].map((option) => {
+            const Icon = option.icon;
+            const isActive = userType === option.id;
+            
+            return (
+              <button
+                key={option.id}
+                onClick={() => setUserType(option.id)}
+                className={`
+                  relative z-10 flex items-center gap-2 px-6 py-3 rounded-full transition-all duration-300
+                  ${isActive 
+                    ? 'text-white font-semibold shadow-lg' 
+                    : 'text-white/70 hover:text-white/90'
+                  }
+                `}
+              >
+                <Icon className="w-4 h-4" />
+                <span className="text-sm whitespace-nowrap">
+                  {option.id === 2 ? (
+                    <>
+                      <div>Relationship</div>
+                      <div>Manager</div>
+                    </>
+                  ) : option.label}
+                </span>
+              </button>
+            );
+          })}
         </div>
       </div>
     </div>
