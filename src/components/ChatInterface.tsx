@@ -1,8 +1,12 @@
 import { useState } from 'react';
-import { Send, Bot, User, Expand } from 'lucide-react';
+import { Send, Bot, User, Expand, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Switch } from '@/components/ui/switch';
+import { Slider } from '@/components/ui/slider';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { ParentDashboard } from './ParentDashboard';
+import { RMDashboard } from './RMDashboard';
 
 interface ChatMode {
   id: string;
@@ -17,12 +21,6 @@ const chatModes: ChatMode[] = [
     title: 'Finance Research',
     description: 'Financial analysis and research',
     color: 'bg-primary/20 border-primary/40'
-  },
-  {
-    id: 'esg',
-    title: 'ESG Investing',
-    description: 'Sustainable investment guidance',
-    color: 'bg-esg/20 border-esg/40'
   }
 ];
 
@@ -35,6 +33,8 @@ interface Message {
 
 export const ChatInterface = () => {
   const [selectedMode, setSelectedMode] = useState<string>('finance');
+  const [isAdvancedMode, setIsAdvancedMode] = useState(false);
+  const [userType, setUserType] = useState<number>(0); // 0: Client, 1: Parents, 2: RM
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 'welcome',
@@ -45,6 +45,22 @@ export const ChatInterface = () => {
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  const getUserTypeLabel = (type: number) => {
+    switch(type) {
+      case 0: return 'Client';
+      case 1: return 'Parents';
+      case 2: return 'Relation Manager';
+      default: return 'Client';
+    }
+  };
+
+  const getThemeColors = () => {
+    if (userType === 1) return { primary: 'parent', bg: 'parent/5', border: 'parent/20' };
+    if (userType === 2) return { primary: 'rm', bg: 'rm/5', border: 'rm/20' };
+    if (isAdvancedMode) return { primary: 'advanced', bg: 'advanced/5', border: 'advanced/20' };
+    return { primary: 'primary', bg: 'primary/5', border: 'primary/20' };
+  };
 
   const handleSendMessage = async () => {
     if (!inputValue.trim() || isLoading) return;
@@ -78,7 +94,8 @@ export const ChatInterface = () => {
         },
         body: JSON.stringify({
           message: currentInput,
-          mode: selectedMode,
+          mode: isAdvancedMode ? 'advanced_finance' : selectedMode,
+          user_type: getUserTypeLabel(userType),
           timestamp: new Date().toISOString(),
           user_id: 'user_' + Date.now()
         }),
@@ -106,7 +123,7 @@ export const ChatInterface = () => {
         } else if (aiResponseData.text) {
           responseContent = aiResponseData.text;
         } else {
-          responseContent = `I understand you're asking about "${currentInput}". As your BOCHK AI Agent in ${chatModes.find(m => m.id === selectedMode)?.title} mode, I'm here to help you with that.`;
+          responseContent = `I understand you're asking about "${currentInput}". As your BOCHK AI Agent in ${isAdvancedMode ? 'Advanced Finance' : chatModes.find(m => m.id === selectedMode)?.title} mode for ${getUserTypeLabel(userType)}, I'm here to help you with that.`;
         }
         
         const aiResponse: Message = {
@@ -142,60 +159,31 @@ export const ChatInterface = () => {
   };
 
   const getRightPanelContent = () => {
-    switch (selectedMode) {
-      case 'finance':
-        return (
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Market Overview</h3>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="glass-panel p-4">
-                <div className="text-sm text-muted-foreground">HSI</div>
-                <div className="text-lg font-bold text-primary">17,234</div>
-                <div className="text-xs text-green-400">+1.2%</div>
-              </div>
-              <div className="glass-panel p-4">
-                <div className="text-sm text-muted-foreground">USD/HKD</div>
-                <div className="text-lg font-bold">7.85</div>
-                <div className="text-xs text-red-400">-0.1%</div>
-              </div>
-            </div>
+    const colors = getThemeColors();
+    
+    return (
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold">Market Overview</h3>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="glass-panel p-4">
+            <div className="text-sm text-muted-foreground">HSI</div>
+            <div className={`text-lg font-bold text-${colors.primary}`}>17,234</div>
+            <div className="text-xs text-green-400">+1.2%</div>
           </div>
-        );
-      case 'esg':
-        return (
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">ESG Insights</h3>
-            <div className="space-y-2">
-              <div className="glass-panel p-3">
-                <div className="text-sm font-medium">Green Bonds</div>
-                <div className="text-xs text-muted-foreground">Sustainable investment opportunities</div>
-              </div>
-              <div className="glass-panel p-3">
-                <div className="text-sm font-medium">ESG Score: A+</div>
-                <div className="text-xs text-muted-foreground">Portfolio sustainability rating</div>
-              </div>
-            </div>
+          <div className="glass-panel p-4">
+            <div className="text-sm text-muted-foreground">USD/HKD</div>
+            <div className="text-lg font-bold">7.85</div>
+            <div className="text-xs text-red-400">-0.1%</div>
           </div>
-        );
-      default:
-        return (
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Market Overview</h3>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="glass-panel p-4">
-                <div className="text-sm text-muted-foreground">HSI</div>
-                <div className="text-lg font-bold text-primary">17,234</div>
-                <div className="text-xs text-green-400">+1.2%</div>
-              </div>
-              <div className="glass-panel p-4">
-                <div className="text-sm text-muted-foreground">USD/HKD</div>
-                <div className="text-lg font-bold">7.85</div>
-                <div className="text-xs text-red-400">-0.1%</div>
-              </div>
-            </div>
+        </div>
+        {isAdvancedMode && (
+          <div className="mt-4 p-3 rounded-lg bg-advanced/10 border border-advanced/20">
+            <div className="text-sm font-medium text-advanced mb-2">Advanced Analytics</div>
+            <div className="text-xs text-muted-foreground">Enhanced AI insights and predictive models active</div>
           </div>
-        );
-    }
+        )}
+      </div>
+    );
   };
 
   const renderMessageContent = (content: string) => {
@@ -294,7 +282,7 @@ export const ChatInterface = () => {
     // Split content by image placeholders and reconstruct with images
     const parts = processedContent.split(/(__IMAGE_\d+__)/);
     
-    return parts.map((part, index) => {
+  return parts.map((part, index) => {
       const imageMatch = part.match(/^__IMAGE_(\d+)__$/);
       if (imageMatch) {
         const imageIndex = parseInt(imageMatch[1]);
@@ -304,10 +292,21 @@ export const ChatInterface = () => {
     }).filter(Boolean);
   };
 
+  const colors = getThemeColors();
+
+  // Show different views based on user type
+  if (userType === 1) {
+    return <ParentDashboard />;
+  }
+  
+  if (userType === 2) {
+    return <RMDashboard />;
+  }
+
   return (
     <div className="w-full max-w-6xl mx-auto p-6">
-      {/* Mode Selection */}
-      <div className="grid grid-cols-2 gap-4 mb-6">
+      {/* Mode Selection - only show for Client view */}
+      <div className="grid grid-cols-1 gap-4 mb-6">
         {chatModes.map((mode) => (
           <button
             key={mode.id}
@@ -315,7 +314,7 @@ export const ChatInterface = () => {
             className={`
               p-4 rounded-xl border backdrop-blur-md transition-all duration-300
               ${selectedMode === mode.id 
-                ? mode.color + ' shadow-glow scale-105' 
+                ? `bg-${colors.primary}/20 border-${colors.primary}/40 shadow-glow scale-105` 
                 : 'bg-glass border-glass-border hover:scale-102'
               }
             `}
@@ -326,11 +325,23 @@ export const ChatInterface = () => {
         ))}
       </div>
 
+      {/* Advanced Mode Toggle */}
+      <div className="flex items-center justify-center gap-3 mb-6">
+        <div className="flex items-center gap-2 p-3 rounded-lg bg-glass border border-glass-border">
+          <Zap className={`w-4 h-4 ${isAdvancedMode ? `text-${colors.primary}` : 'text-muted-foreground'}`} />
+          <span className="text-sm font-medium">Advanced Mode</span>
+          <Switch
+            checked={isAdvancedMode}
+            onCheckedChange={setIsAdvancedMode}
+          />
+        </div>
+      </div>
+
       {/* Chat Interface */}
       <div className="grid md:grid-cols-3 gap-6">
         {/* Chat Area */}
         <div className={`md:col-span-2 glass-panel p-6 ${
-          selectedMode === 'esg' ? 'border-esg/40 bg-esg/10' : ''
+          isAdvancedMode ? `border-${colors.primary}/40 bg-${colors.bg}` : ''
         }`}>
           {/* Messages */}
           <div className="h-96 overflow-y-auto mb-4 space-y-4">
@@ -348,19 +359,11 @@ export const ChatInterface = () => {
                   >
                     <div className={`flex items-start gap-2 ${message.isUser ? 'flex-row-reverse' : 'flex-row'}`}>
                       {/* Avatar */}
-                       <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
-                        message.isUser 
-                          ? 'bg-primary' 
-                          : selectedMode === 'esg' 
-                            ? 'bg-esg' 
-                            : 'bg-primary'
-                       }`}>
+                       <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center bg-${colors.primary}`}>
                          {message.isUser ? (
                            <User className="w-4 h-4 text-foreground" />
                          ) : (
-                           <Bot className={`w-4 h-4 ${
-                             selectedMode === 'esg' ? 'text-esg-foreground' : 'text-primary-foreground'
-                           }`} />
+                           <Bot className={`w-4 h-4 text-${colors.primary}-foreground`} />
                          )}
                       </div>
                       
@@ -373,11 +376,9 @@ export const ChatInterface = () => {
                           className={`
                             max-w-xs lg:max-w-md px-4 py-2 rounded-xl
                              ${message.isUser 
-                               ? selectedMode === 'esg'
-                                 ? 'bg-esg text-esg-foreground'
-                                 : 'bg-primary text-primary-foreground'
-                               : selectedMode === 'esg'
-                                 ? 'bg-esg/20 border border-esg/40 backdrop-blur-md'
+                               ? `bg-${colors.primary} text-${colors.primary}-foreground`
+                               : isAdvancedMode
+                                 ? `bg-${colors.primary}/20 border border-${colors.primary}/40 backdrop-blur-md`
                                  : 'glass-panel'
                              }
                           `}
@@ -392,25 +393,19 @@ export const ChatInterface = () => {
                   <div className="flex justify-start">
                     <div className="flex items-start gap-2 flex-row">
                       {/* Avatar */}
-                       <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
-                         selectedMode === 'esg' ? 'bg-esg' : 'bg-primary'
-                       }`}>
-                         <Bot className={`w-4 h-4 ${
-                           selectedMode === 'esg' ? 'text-esg-foreground' : 'text-primary-foreground'
-                         }`} />
+                       <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center bg-${colors.primary}`}>
+                         <Bot className={`w-4 h-4 text-${colors.primary}-foreground`} />
                       </div>
                       
                       {/* Message content */}
                       <div className="flex flex-col gap-1">
                         <div className="text-xs font-medium text-left">Xin AI</div>
-                         <div className={selectedMode === 'esg' 
-                           ? 'bg-esg/20 border border-esg/40 backdrop-blur-md px-4 py-2 rounded-xl'
+                         <div className={isAdvancedMode 
+                           ? `bg-${colors.primary}/20 border border-${colors.primary}/40 backdrop-blur-md px-4 py-2 rounded-xl`
                            : 'glass-panel px-4 py-2 rounded-xl'
                          }>
                           <div className="flex items-center space-x-2">
-                             <div className={`animate-spin rounded-full h-4 w-4 border-b-2 ${
-                               selectedMode === 'esg' ? 'border-esg' : 'border-primary'
-                             }`}></div>
+                             <div className={`animate-spin rounded-full h-4 w-4 border-b-2 border-${colors.primary}`}></div>
                             <span>AI is thinking...</span>
                           </div>
                         </div>
@@ -430,8 +425,8 @@ export const ChatInterface = () => {
               onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
               placeholder="Type your message..."
               className={`flex-1 ${
-                selectedMode === 'esg' 
-                  ? 'bg-esg/10 border-esg/40' 
+                isAdvancedMode 
+                  ? `bg-${colors.primary}/10 border-${colors.primary}/40` 
                   : 'bg-glass border-glass-border'
               }`}
               disabled={isLoading}
@@ -439,10 +434,7 @@ export const ChatInterface = () => {
             <Button 
               size="icon" 
               onClick={handleSendMessage} 
-              className={selectedMode === 'esg' 
-                ? 'bg-esg hover:bg-esg-dark text-esg-foreground'
-                : 'bg-primary hover:bg-primary/80'
-              }
+              className={`bg-${colors.primary} hover:bg-${colors.primary}/80`}
               disabled={isLoading || !inputValue.trim()}
             >
               <Send className="w-4 h-4" />
@@ -453,6 +445,42 @@ export const ChatInterface = () => {
         {/* Right Panel */}
         <div className="glass-panel p-6">
           {getRightPanelContent()}
+        </div>
+      </div>
+
+      {/* User Type Slider */}
+      <div className="mt-8 p-6 glass-panel">
+        <div className="text-center mb-4">
+          <h3 className="text-lg font-semibold mb-2">User Perspective</h3>
+          <p className="text-sm text-muted-foreground">Switch between different user views</p>
+        </div>
+        
+        <div className="max-w-md mx-auto">
+          <Slider
+            value={[userType]}
+            onValueChange={(value) => setUserType(value[0])}
+            max={2}
+            step={1}
+            className="mb-4"
+          />
+          
+          <div className="flex justify-between text-sm">
+            <span className={userType === 0 ? `text-${colors.primary} font-medium` : 'text-muted-foreground'}>
+              Client
+            </span>
+            <span className={userType === 1 ? 'text-parent font-medium' : 'text-muted-foreground'}>
+              Parents
+            </span>
+            <span className={userType === 2 ? 'text-rm font-medium' : 'text-muted-foreground'}>
+              Relation Manager
+            </span>
+          </div>
+          
+          <div className="text-center mt-2">
+            <span className="text-xs text-muted-foreground">
+              Current: <span className="font-medium">{getUserTypeLabel(userType)}</span>
+            </span>
+          </div>
         </div>
       </div>
     </div>

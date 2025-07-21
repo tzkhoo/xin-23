@@ -48,11 +48,23 @@ export default {
 					DEFAULT: 'hsl(var(--accent))',
 					foreground: 'hsl(var(--accent-foreground))'
 				},
-				esg: {
-					DEFAULT: 'hsl(var(--esg))',
-					light: 'hsl(var(--esg-light))',
-					dark: 'hsl(var(--esg-dark))',
-					foreground: 'hsl(var(--esg-foreground))'
+				advanced: {
+					DEFAULT: 'hsl(var(--advanced))',
+					light: 'hsl(var(--advanced-light))',
+					dark: 'hsl(var(--advanced-dark))',
+					foreground: 'hsl(var(--advanced-foreground))'
+				},
+				parent: {
+					DEFAULT: 'hsl(var(--parent))',
+					light: 'hsl(var(--parent-light))',
+					dark: 'hsl(var(--parent-dark))',
+					foreground: 'hsl(var(--parent-foreground))'
+				},
+				rm: {
+					DEFAULT: 'hsl(var(--rm))',
+					light: 'hsl(var(--rm-light))',
+					dark: 'hsl(var(--rm-dark))',
+					foreground: 'hsl(var(--rm-foreground))'
 				},
 				popover: {
 					DEFAULT: 'hsl(var(--popover))',
