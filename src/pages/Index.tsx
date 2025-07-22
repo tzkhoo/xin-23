@@ -1,5 +1,7 @@
 import { StarField } from '@/components/StarField';
 import { ChatInterface } from '@/components/ChatInterface';
+import { Dashboard } from '@/components/Dashboard';
+import { NewsReels } from '@/components/NewsReels';
 import aiOrbImage from '@/assets/ai-orb.png';
 
 const Index = () => {
@@ -36,6 +38,16 @@ const Index = () => {
         {/* Chat Interface */}
         <div className="animate-fade-in" style={{ animationDelay: '300ms' }}>
           <ChatInterface />
+        </div>
+
+        {/* Dashboard */}
+        <div className="animate-fade-in" style={{ animationDelay: '600ms' }}>
+          <Dashboard />
+        </div>
+
+        {/* News Reels */}
+        <div className="animate-fade-in" style={{ animationDelay: '900ms' }}>
+          <NewsReels />
         </div>
       </div>
     </div>

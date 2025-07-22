@@ -7,8 +7,6 @@ import Index from "./pages/Index";
 import Insights from "./pages/Insights";
 import News from "./pages/News";
 import NotFound from "./pages/NotFound";
-import { Navigation } from "./components/Navigation";
-
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -25,7 +23,6 @@ const App = () => (
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
-          <Navigation />
         </div>
       </BrowserRouter>
     </TooltipProvider>

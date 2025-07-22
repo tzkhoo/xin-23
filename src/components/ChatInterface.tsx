@@ -185,33 +185,6 @@ export const ChatInterface = () => {
     }
   };
 
-  const getRightPanelContent = () => {
-    const themeClasses = getThemeClasses();
-    
-    return (
-      <div className="space-y-4">
-        <h3 className="text-lg font-semibold">Market Overview</h3>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="glass-panel p-4">
-            <div className="text-sm text-muted-foreground">HSI</div>
-            <div className={`text-lg font-bold ${themeClasses.text}`}>17,234</div>
-            <div className="text-xs text-green-400">+1.2%</div>
-          </div>
-          <div className="glass-panel p-4">
-            <div className="text-sm text-muted-foreground">USD/HKD</div>
-            <div className="text-lg font-bold">7.85</div>
-            <div className="text-xs text-red-400">-0.1%</div>
-          </div>
-        </div>
-        {isAdvancedMode && (
-          <div className="mt-4 p-3 rounded-lg bg-advanced/10 border border-advanced/20">
-            <div className="text-sm font-medium text-advanced mb-2">Advanced Analytics</div>
-            <div className="text-xs text-muted-foreground">Enhanced AI insights and predictive models active</div>
-          </div>
-        )}
-      </div>
-    );
-  };
 
   const renderMessageContent = (content: string) => {
     // Check for markdown image syntax: ![alt](url) or direct image URLs
@@ -364,9 +337,8 @@ export const ChatInterface = () => {
         </div>
 
         {/* Chat Interface */}
-        <div className="grid md:grid-cols-3 gap-6">
-          {/* Chat Area */}
-          <div className={`md:col-span-2 glass-panel p-6 ${
+        <div className="w-full">
+          <div className={`glass-panel p-6 ${
             isAdvancedMode ? `${themeClasses.border} ${themeClasses.bg}` : ''
           }`}>
             {/* Messages */}
@@ -478,11 +450,6 @@ export const ChatInterface = () => {
                 <Send className="w-4 h-4" />
               </Button>
             </div>
-          </div>
-
-          {/* Right Panel */}
-          <div className="glass-panel p-6">
-            {getRightPanelContent()}
           </div>
         </div>
       </div>
