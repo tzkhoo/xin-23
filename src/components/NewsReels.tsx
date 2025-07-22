@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Play, Heart, MessageCircle, Share, TrendingUp, ArrowRight } from 'lucide-react';
+import { Play, Heart, MessageCircle, Share, TrendingUp, ArrowRight, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 const newsReels = [
   {
@@ -44,11 +45,11 @@ export const NewsReels = () => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-6 space-y-8">
-      <h2 className="text-3xl font-bold text-center mb-8">Financial News Reels</h2>
+    <div className="w-full max-w-6xl mx-auto p-4 sm:p-6 space-y-6 sm:space-y-8">
+      <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-8">Reels for News</h2>
       
       {/* Instagram-style Reels Container */}
-      <div className="grid md:grid-cols-2 gap-8">
+      <div className="grid lg:grid-cols-2 gap-6 sm:gap-8">
         {/* Reels Player */}
         <div className="relative">
           <div className="aspect-[9/16] max-h-[600px] bg-black rounded-2xl overflow-hidden relative group">
@@ -124,9 +125,21 @@ export const NewsReels = () => {
         </div>
 
         {/* Sidebar Content */}
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
+          {/* Search Box */}
+          <div className="glass-panel p-3 sm:p-4 rounded-xl">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input 
+                placeholder="Search financial news..." 
+                className="pl-10 bg-transparent border-muted"
+                disabled
+              />
+            </div>
+          </div>
+
           {/* Reel Queue */}
-          <div className="glass-panel p-4 rounded-xl">
+          <div className="glass-panel p-3 sm:p-4 rounded-xl">
             <h4 className="font-semibold mb-3">Up Next</h4>
             <div className="space-y-3">
               {newsReels.map((reel, index) => (
@@ -155,38 +168,19 @@ export const NewsReels = () => {
               ))}
             </div>
           </div>
-
-          {/* Related Insights */}
-          <div className="glass-panel p-4 rounded-xl">
-            <h4 className="font-semibold mb-3">Market Insights</h4>
-            <div className="space-y-3 text-sm">
-              <div className="flex items-center justify-between p-2 rounded bg-green-50 dark:bg-green-950/20">
-                <span>Market Sentiment</span>
-                <span className="text-green-600 font-medium">Bullish</span>
-              </div>
-              <div className="flex items-center justify-between p-2 rounded bg-blue-50 dark:bg-blue-950/20">
-                <span>Volatility Index</span>
-                <span className="text-blue-600 font-medium">Low</span>
-              </div>
-              <div className="flex items-center justify-between p-2 rounded bg-orange-50 dark:bg-orange-950/20">
-                <span>Fed Policy</span>
-                <span className="text-orange-600 font-medium">Dovish</span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
       {/* Stock Suggestions */}
-      <div className="glass-panel p-6 rounded-2xl">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-xl font-semibold">Trending Stocks</h3>
+      <div className="glass-panel p-4 sm:p-6 rounded-2xl">
+        <div className="flex items-center justify-between mb-4 sm:mb-6">
+          <h3 className="text-lg sm:text-xl font-semibold">Trending Stocks</h3>
           <Button variant="outline" size="sm">
             View All <ArrowRight className="w-4 h-4 ml-1" />
           </Button>
         </div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {stockSuggestions.map((stock) => (
             <div key={stock.symbol} className="glass-panel p-4 rounded-xl hover:shadow-lg transition-shadow cursor-pointer">
               <div className="flex items-center justify-between mb-2">
@@ -204,7 +198,7 @@ export const NewsReels = () => {
           ))}
         </div>
         
-        <div className="mt-6 p-4 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-xl border border-primary/20">
+        <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-xl border border-primary/20">
           <div className="flex items-center gap-2 mb-2">
             <TrendingUp className="w-5 h-5 text-primary" />
             <span className="font-semibold">AI Market Analysis</span>

@@ -2,52 +2,41 @@ import { StarField } from '@/components/StarField';
 import { ChatInterface } from '@/components/ChatInterface';
 import { Dashboard } from '@/components/Dashboard';
 import { NewsReels } from '@/components/NewsReels';
-import aiOrbImage from '@/assets/ai-orb.png';
+import premiumOrbImage from '@/assets/premium-ai-orb.png';
 
 const Index = () => {
   return (
     <div className="min-h-screen relative overflow-hidden">
       <StarField />
       
-      <div className="relative z-10 container mx-auto px-6 pt-16 pb-32">
-        {/* Header */}
-        <div className="text-center mb-16 animate-fade-in">
-          <div className="flex justify-center mb-8">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-20">
+        {/* Header - Mobile First */}
+        <div className="text-center mb-8 sm:mb-12 animate-fade-in">
+          <div className="flex justify-center mb-4 sm:mb-6">
             <div className="relative">
               <img 
-                src={aiOrbImage} 
-                alt="Xin AI Orb" 
-                className="w-24 h-24 animate-float glow-red"
+                src={premiumOrbImage} 
+                alt="Xin AI Premium Orb" 
+                className="w-16 h-16 sm:w-20 sm:h-20 animate-float"
               />
-              <div className="absolute inset-0 bg-gradient-red-glow rounded-full animate-pulse-glow"></div>
             </div>
           </div>
           
-          <h1 className="text-5xl md:text-6xl font-bold mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 sm:mb-3">
             <span className="text-foreground">Xin</span>
-            <span className="text-primary glow-red"> AI</span>
+            <span className="text-primary"> AI</span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-muted-foreground mb-2">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-4">
             BOCHK AI Agent - by HKUSTeam
           </p>
           
-          <div className="w-24 h-1 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto"></div>
+          <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto"></div>
         </div>
 
         {/* Chat Interface */}
         <div className="animate-fade-in" style={{ animationDelay: '300ms' }}>
           <ChatInterface />
-        </div>
-
-        {/* Dashboard */}
-        <div className="animate-fade-in" style={{ animationDelay: '600ms' }}>
-          <Dashboard />
-        </div>
-
-        {/* News Reels */}
-        <div className="animate-fade-in" style={{ animationDelay: '900ms' }}>
-          <NewsReels />
         </div>
       </div>
     </div>

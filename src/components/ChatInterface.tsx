@@ -6,6 +6,8 @@ import { Switch } from '@/components/ui/switch';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { ParentDashboard } from './ParentDashboard';
 import { RMDashboard } from './RMDashboard';
+import { Dashboard } from './Dashboard';
+import { NewsReels } from './NewsReels';
 
 interface ChatMode {
   id: string;
@@ -315,9 +317,9 @@ export const ChatInterface = () => {
 
   return (
     <>
-      <div className="w-full max-w-6xl mx-auto p-6">
+      <div className="w-full max-w-6xl mx-auto p-4 sm:p-6">
         {/* Mode Selection - only show for Client view */}
-        <div className="grid grid-cols-1 gap-4 mb-6">
+        <div className="grid grid-cols-1 gap-3 sm:gap-4 mb-4 sm:mb-6">
           {chatModes.map((mode) => (
             <button
               key={mode.id}
@@ -452,6 +454,16 @@ export const ChatInterface = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Dashboard - Only for Client */}
+      <div className="animate-fade-in" style={{ animationDelay: '600ms' }}>
+        <Dashboard />
+      </div>
+
+      {/* News Reels - Only for Client */}
+      <div className="animate-fade-in" style={{ animationDelay: '900ms' }}>
+        <NewsReels />
       </div>
       
       <PremiumUserTypeSlider userType={userType} setUserType={setUserType} />
