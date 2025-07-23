@@ -17,7 +17,7 @@ export const StarField = () => {
     const stars: Star[] = [];
 
     // Generate random stars
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 80; i++) {
       stars.push({
         x: Math.random() * 100,
         y: Math.random() * 100,

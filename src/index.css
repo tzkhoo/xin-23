@@ -210,6 +210,11 @@
     }
   }
   
+  @keyframes gentle-float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+  }
+  
   @keyframes float-text {
     0%, 100% { transform: translateY(0px); }
     50% { transform: translateY(-8px); }
@@ -238,12 +243,60 @@
   
   .particle {
     position: absolute;
-    width: 3px;
-    height: 3px;
+    width: 2px;
+    height: 2px;
     background: hsl(160 60% 45%);
     border-radius: 50%;
     animation: particle-fall 2s linear infinite;
+    box-shadow: 0 0 4px hsl(160 60% 45%);
+  }
+  
+  .particle-left {
+    animation: particle-fall-left 2s linear infinite;
+  }
+  
+  .particle-right {
+    animation: particle-fall-right 2s linear infinite;
+  }
+  
+  .particle-bottom {
+    animation: particle-fall-bottom 1.5s linear infinite;
+    width: 3px;
+    height: 3px;
     box-shadow: 0 0 6px hsl(160 60% 45%);
+  }
+  
+  @keyframes particle-fall-left {
+    0% { 
+      transform: translateY(0px) translateX(0px) scale(1);
+      opacity: 1;
+    }
+    100% { 
+      transform: translateY(30px) translateX(-15px) scale(0.3);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes particle-fall-right {
+    0% { 
+      transform: translateY(0px) translateX(0px) scale(1);
+      opacity: 1;
+    }
+    100% { 
+      transform: translateY(30px) translateX(15px) scale(0.3);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes particle-fall-bottom {
+    0% { 
+      transform: translateY(0px) translateX(0px) scale(1);
+      opacity: 1;
+    }
+    100% { 
+      transform: translateY(40px) translateX(5px) scale(0.2);
+      opacity: 0;
+    }
   }
   
 }

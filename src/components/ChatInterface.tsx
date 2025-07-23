@@ -345,21 +345,49 @@ export const ChatInterface = () => {
                ? `${themeClasses.border} ${themeClasses.bg} animate-premium-burn shadow-[0_0_30px_hsl(160_60%_45%/0.4)]` 
                : ''
            }`}>
-             {isAdvancedMode && (
-               <div className="advanced-particles">
-                 {[...Array(8)].map((_, i) => (
-                   <div
-                     key={i}
-                     className="particle"
-                     style={{
-                       left: `${10 + i * 12}%`,
-                       animationDelay: `${i * 0.3}s`,
-                       animationDuration: `${2 + Math.random()}s`
-                     }}
-                   />
-                 ))}
-               </div>
-             )}
+              {isAdvancedMode && (
+                <div className="advanced-particles">
+                  {/* Left side particles */}
+                  {[...Array(4)].map((_, i) => (
+                    <div
+                      key={`left-${i}`}
+                      className="particle particle-left"
+                      style={{
+                        left: `${5 + i * 3}%`,
+                        top: `${20 + i * 15}%`,
+                        animationDelay: `${i * 0.4}s`,
+                        animationDuration: `${2 + Math.random() * 0.5}s`
+                      }}
+                    />
+                  ))}
+                  {/* Right side particles */}
+                  {[...Array(4)].map((_, i) => (
+                    <div
+                      key={`right-${i}`}
+                      className="particle particle-right"
+                      style={{
+                        right: `${5 + i * 3}%`,
+                        top: `${20 + i * 15}%`,
+                        animationDelay: `${i * 0.4}s`,
+                        animationDuration: `${2 + Math.random() * 0.5}s`
+                      }}
+                    />
+                  ))}
+                  {/* Bottom particles (more intense) */}
+                  {[...Array(8)].map((_, i) => (
+                    <div
+                      key={`bottom-${i}`}
+                      className="particle particle-bottom"
+                      style={{
+                        left: `${15 + i * 10}%`,
+                        bottom: '0%',
+                        animationDelay: `${i * 0.2}s`,
+                        animationDuration: `${1.5 + Math.random() * 0.3}s`
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
             {/* Messages */}
             <div className="h-96 overflow-y-auto mb-4 space-y-4">
               {messages.length === 0 ? (
@@ -387,7 +415,7 @@ export const ChatInterface = () => {
                         {/* Message content */}
                         <div className="flex flex-col gap-1">
                            <div className={`text-xs font-medium ${message.isUser ? 'text-right' : 'text-left'}`}>
-                             {message.isUser ? 'You' : <span className="animate-float-text">Xin AI</span>}
+                             {message.isUser ? 'You' : <span className="animate-gentle-float">Xin AI</span>}
                            </div>
                           <div
                             className={`
@@ -417,7 +445,7 @@ export const ChatInterface = () => {
                         {/* Message content */}
                         <div className="flex flex-col gap-1">
                            <div className="text-xs font-medium text-left">
-                             <span className="animate-float-text">Xin AI</span>
+                             <span className="animate-gentle-float">Xin AI</span>
                            </div>
                           <div className={isAdvancedMode 
                             ? `${themeClasses.bg} ${themeClasses.border} backdrop-blur-md px-4 py-2 rounded-xl border`
@@ -514,9 +542,9 @@ const PremiumUserTypeSlider = ({ userType, setUserType }: { userType: number, se
     <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
       <div className="bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20 max-w-[280px] w-fit">
         <div className="relative flex rounded-full overflow-hidden">
-          {/* Sliding background indicator */}
+           {/* Sliding background indicator */}
            <div 
-             className={`absolute top-0 bottom-0 w-1/3 ${getSliderBg()} rounded-full transition-all duration-500 ease-out`}
+             className={`absolute top-0 bottom-0 w-1/3 ${getSliderBg()} rounded-full transition-all duration-500 ease-out z-0`}
              style={{ 
                transform: `translateX(${userType * 100}%)` 
              }}

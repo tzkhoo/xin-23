@@ -130,6 +130,10 @@ export default {
 						borderColor: 'hsl(160 60% 45% / 0.6)'
 					}
 				},
+				'gentle-float': {
+					'0%, 100%': { transform: 'translateY(0px)' },
+					'50%': { transform: 'translateY(-5px)' }
+				},
 				'particle-fall': {
 					'0%': { 
 						transform: 'translateY(-10px) translateX(0px) scale(1)',
@@ -149,8 +153,9 @@ export default {
 				'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
 				'fade-in': 'fade-in 0.6s ease-out',
 				'float-text': 'float-text 4s ease-in-out infinite',
-				'premium-burn': 'premium-burn 4s ease-in-out infinite',
-				'particle-fall': 'particle-fall 2s linear infinite'
+				'premium-burn': 'premium-burn 10s ease-in-out infinite',
+				'particle-fall': 'particle-fall 2s linear infinite',
+				'gentle-float': 'gentle-float 3s ease-in-out infinite'
 			}
 		}
 	},

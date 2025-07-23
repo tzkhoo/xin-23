@@ -69,10 +69,10 @@ export const Dashboard = () => {
           <div className="lg:col-span-2">
             <div className="mb-6">
               {/* Combined Total Value Card */}
-              <div className="bg-gradient-to-r from-secondary/20 to-secondary/10 p-4 sm:p-6 rounded-xl border border-secondary/20 mb-6">
-                <div className="text-sm text-muted-foreground mb-2">Total Portfolio Value</div>
-                <div className="text-2xl sm:text-3xl font-bold text-secondary mb-2">$2,847,592</div>
-                <div className="flex items-center gap-4 text-sm">
+              <div className="bg-gradient-to-r from-secondary/20 to-secondary/10 p-6 sm:p-8 rounded-xl border border-secondary/20 mb-6 text-center">
+                <div className="text-base sm:text-lg text-muted-foreground mb-3">Total Portfolio Value</div>
+                <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3">$2,847,592</div>
+                <div className="flex items-center justify-center gap-4 text-base sm:text-lg">
                   <span className="text-green-400 font-medium">+12.5% this month</span>
                 </div>
               </div>
