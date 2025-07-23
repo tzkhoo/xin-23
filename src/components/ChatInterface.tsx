@@ -493,7 +493,7 @@ const PremiumUserTypeSlider = ({ userType, setUserType }: { userType: number, se
 
   return (
     <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
-      <div className="bg-white/10 backdrop-blur-md rounded-full p-2 border border-white/20">
+      <div className="bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20 max-w-[280px] w-fit">
         <div className="relative flex rounded-full overflow-hidden">
           {/* Sliding background indicator */}
           <div 
@@ -517,18 +517,23 @@ const PremiumUserTypeSlider = ({ userType, setUserType }: { userType: number, se
                 key={option.id}
                 onClick={() => setUserType(option.id)}
                 className={`
-                  relative z-10 flex items-center gap-2 px-6 py-3 rounded-full transition-all duration-300
+                  relative z-10 flex flex-col items-center justify-center px-3 py-2 rounded-full transition-all duration-300 w-20 h-16
                   ${isActive 
                     ? 'text-white font-semibold shadow-lg' 
                     : 'text-white/70 hover:text-white/90'
                   }
                 `}
               >
-                <Icon className="w-4 h-4" />
-                <span className="text-sm whitespace-nowrap">
-                  {option.id === 2 ? (
+                <Icon className="w-3 h-3 mb-1" />
+                <span className="text-xs text-center leading-tight">
+                  {option.id === 0 ? (
                     <>
-                      <div>Relationship</div>
+                      <div>BOCHK</div>
+                      <div>Client</div>
+                    </>
+                  ) : option.id === 2 ? (
+                    <>
+                      <div>Relation</div>
                       <div>Manager</div>
                     </>
                   ) : option.label}

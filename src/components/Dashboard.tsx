@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Send, Bot, User, PieChart } from 'lucide-react';
+import { Send, Bot, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { PieChart as PieChartIcon } from 'lucide-react';
 
 interface Message {
   id: string;
@@ -51,6 +52,12 @@ export const Dashboard = () => {
     }, 1500);
   };
 
+  const chartData = [
+    { name: 'Stocks', value: 65, color: '#10B981' },
+    { name: 'Bonds', value: 25, color: '#3B82F6' },
+    { name: 'Cash', value: 10, color: '#6B7280' }
+  ];
+
   return (
     <div className="w-full max-w-6xl mx-auto p-4 sm:p-6 space-y-6 sm:space-y-8">
       <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-8">Portfolio Dashboard</h2>
@@ -61,14 +68,12 @@ export const Dashboard = () => {
           {/* Portfolio Overview */}
           <div className="lg:col-span-2">
             <div className="mb-6">
-              <h3 className="text-xl sm:text-2xl font-semibold mb-4">Portfolio Performance</h3>
               {/* Combined Total Value Card */}
-              <div className="bg-gradient-to-r from-primary/20 to-primary/10 p-4 sm:p-6 rounded-xl border border-primary/20 mb-6">
+              <div className="bg-gradient-to-r from-secondary/20 to-secondary/10 p-4 sm:p-6 rounded-xl border border-secondary/20 mb-6">
                 <div className="text-sm text-muted-foreground mb-2">Total Portfolio Value</div>
-                <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">$2,847,592</div>
+                <div className="text-2xl sm:text-3xl font-bold text-secondary mb-2">$2,847,592</div>
                 <div className="flex items-center gap-4 text-sm">
-                  <span className="text-green-400 font-medium">+$8,247 today (+0.29%)</span>
-                  <span className="text-green-400 font-medium">+12.5% YTD</span>
+                  <span className="text-green-400 font-medium">+12.5% this month</span>
                 </div>
               </div>
             </div>
@@ -76,11 +81,32 @@ export const Dashboard = () => {
             {/* Interactive Portfolio Allocation Chart */}
             <Dialog>
               <DialogTrigger asChild>
-                <div className="h-48 sm:h-64 bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 rounded-xl border border-glass-border flex items-center justify-center cursor-pointer hover:shadow-lg transition-all group">
-                  <div className="text-center">
-                    <PieChart className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-4 text-primary group-hover:scale-110 transition-transform" />
-                    <div className="text-lg font-semibold mb-2">Portfolio Allocation</div>
-                    <div className="text-sm text-muted-foreground">Click to view detailed breakdown</div>
+                <div className="h-48 sm:h-64 bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 rounded-xl border border-glass-border cursor-pointer hover:shadow-lg transition-all group p-4">
+                  <div className="flex items-center justify-between h-full">
+                    <div className="flex-1">
+                      <div className="text-lg font-semibold mb-2">Portfolio Allocation</div>
+                      <div className="text-sm text-muted-foreground mb-4">Click to view detailed breakdown</div>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span>Stocks (65%)</span>
+                          <span className="text-green-400">$1,849,935</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Bonds (25%)</span>
+                          <span className="text-blue-400">$711,898</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Cash (10%)</span>
+                          <span className="text-gray-400">$284,759</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="w-24 h-24 sm:w-32 sm:h-32 flex items-center justify-center">
+                      <div className="relative w-20 h-20 rounded-full bg-gradient-to-r from-green-500 via-blue-500 to-gray-500 flex items-center justify-center">
+                        <div className="w-8 h-8 bg-background rounded-full"></div>
+                        <PieChartIcon className="absolute w-6 h-6 text-primary" />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </DialogTrigger>
@@ -89,6 +115,13 @@ export const Dashboard = () => {
                   <DialogTitle>Portfolio Allocation Details</DialogTitle>
                 </DialogHeader>
                 <div className="space-y-4">
+                  <div className="w-full h-64 mb-6 flex items-center justify-center">
+                    <div className="relative w-48 h-48 rounded-full bg-gradient-to-r from-green-500 via-blue-500 to-gray-500 flex items-center justify-center">
+                      <div className="w-20 h-20 bg-background rounded-full flex items-center justify-center">
+                        <PieChartIcon className="w-8 h-8 text-primary" />
+                      </div>
+                    </div>
+                  </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="glass-panel p-4">
                       <div className="text-sm text-muted-foreground">Stocks</div>

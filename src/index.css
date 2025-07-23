@@ -38,22 +38,22 @@
     --accent: 315 60% 60%; /* Pinkish purple */
     --accent-foreground: 0 0% 98%;
 
-    /* Advanced Mode Purple */
-    --advanced: 260 75% 55%; /* Advanced purple */
-    --advanced-light: 260 60% 65%; /* Light advanced purple */
-    --advanced-dark: 260 80% 45%; /* Dark advanced purple */
+    /* Advanced Mode Emerald Green */
+    --advanced: 160 60% 45%; /* Emerald green */
+    --advanced-light: 160 50% 55%; /* Light emerald */
+    --advanced-dark: 160 70% 35%; /* Dark emerald */
     --advanced-foreground: 0 0% 98%;
     
-    /* Parent Mode Gold */
-    --parent: 45 90% 55%; /* Gold for parents */
-    --parent-light: 45 80% 65%; /* Light gold */
-    --parent-dark: 45 95% 45%; /* Dark gold */
+    /* Parent Mode Orange */
+    --parent: 25 95% 55%; /* Orange for parents */
+    --parent-light: 25 85% 65%; /* Light orange */
+    --parent-dark: 25 100% 45%; /* Dark orange */
     --parent-foreground: 0 0% 98%;
     
-    /* RM Mode Teal */
-    --rm: 185 75% 45%; /* Teal for RM */
-    --rm-light: 185 60% 55%; /* Light teal */
-    --rm-dark: 185 80% 35%; /* Dark teal */
+    /* RM Mode Blue */
+    --rm: 220 90% 55%; /* Blue for RM */
+    --rm-light: 220 80% 65%; /* Light blue */
+    --rm-dark: 220 95% 45%; /* Dark blue */
     --rm-foreground: 0 0% 98%;
 
     /* Destructive */
