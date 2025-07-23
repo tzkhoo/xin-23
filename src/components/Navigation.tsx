@@ -30,24 +30,24 @@ export const Navigation = () => {
 
   return (
     <nav className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50">
-      <div className="flex items-center gap-4 px-4 py-2 glass-panel">
+       <div className="flex items-center gap-4 px-4 py-2 glass-panel" style={{ width: '115%' }}>
         {navigationItems.map((item) => {
           const isActive = location.pathname === item.path;
           const Icon = item.icon;
           
-          return (
-            <Link
-              key={item.id}
-              to={item.path}
-              className={`
-                flex flex-col items-center gap-1 px-3 py-2 rounded-full
-                backdrop-blur-md border transition-all duration-300
-                ${isActive 
-                  ? item.glowColor + ' scale-110' 
-                  : 'bg-glass border-glass-border hover:scale-105 hover:' + item.glowColor
-                }
-              `}
-            >
+           return (
+             <Link
+               key={item.id}
+               to={item.path}
+               className={`
+                 flex flex-col items-center gap-1 px-3 py-2 rounded-full
+                 backdrop-blur-md border transition-all duration-500 ease-out
+                 ${isActive 
+                   ? item.glowColor + ' scale-110' 
+                   : 'bg-glass border-glass-border hover:scale-105 hover:' + item.glowColor
+                 }
+               `}
+             >
               <Icon className="w-6 h-6" />
               <span className="text-xs font-medium">{item.label}</span>
             </Link>

@@ -340,11 +340,26 @@ export const ChatInterface = () => {
 
         {/* Chat Interface */}
         <div className="w-full">
-          <div className={`glass-panel p-6 transition-all duration-500 ${
-            isAdvancedMode 
-              ? `${themeClasses.border} ${themeClasses.bg} animate-[premium-burn_2s_ease-in-out_infinite] shadow-[0_0_30px_hsl(160_60%_45%/0.6)]` 
-              : ''
-          }`}>
+           <div className={`glass-panel p-6 transition-all duration-500 relative ${
+             isAdvancedMode 
+               ? `${themeClasses.border} ${themeClasses.bg} animate-premium-burn shadow-[0_0_30px_hsl(160_60%_45%/0.4)]` 
+               : ''
+           }`}>
+             {isAdvancedMode && (
+               <div className="advanced-particles">
+                 {[...Array(8)].map((_, i) => (
+                   <div
+                     key={i}
+                     className="particle"
+                     style={{
+                       left: `${10 + i * 12}%`,
+                       animationDelay: `${i * 0.3}s`,
+                       animationDuration: `${2 + Math.random()}s`
+                     }}
+                   />
+                 ))}
+               </div>
+             )}
             {/* Messages */}
             <div className="h-96 overflow-y-auto mb-4 space-y-4">
               {messages.length === 0 ? (
@@ -371,9 +386,9 @@ export const ChatInterface = () => {
                         
                         {/* Message content */}
                         <div className="flex flex-col gap-1">
-                          <div className={`text-xs font-medium ${message.isUser ? 'text-right' : 'text-left'}`}>
-                            {message.isUser ? 'You' : 'Xin AI'}
-                          </div>
+                           <div className={`text-xs font-medium ${message.isUser ? 'text-right' : 'text-left'}`}>
+                             {message.isUser ? 'You' : <span className="animate-float-text">Xin AI</span>}
+                           </div>
                           <div
                             className={`
                               max-w-xs lg:max-w-md px-4 py-2 rounded-xl
@@ -401,7 +416,9 @@ export const ChatInterface = () => {
                         
                         {/* Message content */}
                         <div className="flex flex-col gap-1">
-                          <div className="text-xs font-medium text-left">Xin AI</div>
+                           <div className="text-xs font-medium text-left">
+                             <span className="animate-float-text">Xin AI</span>
+                           </div>
                           <div className={isAdvancedMode 
                             ? `${themeClasses.bg} ${themeClasses.border} backdrop-blur-md px-4 py-2 rounded-xl border`
                             : 'glass-panel px-4 py-2 rounded-xl'
@@ -498,12 +515,12 @@ const PremiumUserTypeSlider = ({ userType, setUserType }: { userType: number, se
       <div className="bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20 max-w-[280px] w-fit">
         <div className="relative flex rounded-full overflow-hidden">
           {/* Sliding background indicator */}
-          <div 
-            className={`absolute top-0 bottom-0 w-1/3 ${getSliderBg()} rounded-full transition-transform duration-300 ease-out`}
-            style={{ 
-              transform: `translateX(${userType * 100}%)` 
-            }}
-          />
+           <div 
+             className={`absolute top-0 bottom-0 w-1/3 ${getSliderBg()} rounded-full transition-all duration-500 ease-out`}
+             style={{ 
+               transform: `translateX(${userType * 100}%)` 
+             }}
+           />
           
           {/* Option buttons */}
           {[
