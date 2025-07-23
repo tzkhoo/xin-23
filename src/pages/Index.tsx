@@ -12,19 +12,9 @@ const Index = () => {
       <div className="relative z-10 container mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-20">
         {/* Header - Mobile First */}
         <div className="text-center mb-4 animate-fade-in">
-          <div className="flex justify-center mb-3">
-            <div className="relative">
-              <img 
-                src={bankAiLogo} 
-                alt="Bank AI Logo" 
-                className="w-12 h-12 sm:w-16 sm:h-16 animate-float"
-              />
-            </div>
-          </div>
-          
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-2">
-            <span className="text-foreground">Xin</span>
-            <span className="text-primary ml-1">AI</span>
+          <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-2">
+            <span className="text-foreground animate-[float-text_3s_ease-in-out_infinite]">Xin</span>
+            <span className="text-primary ml-1 animate-[float-text_3s_ease-in-out_infinite] [animation-delay:0.5s]">AI</span>
           </h1>
           
           <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-3">

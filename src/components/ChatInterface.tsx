@@ -340,8 +340,10 @@ export const ChatInterface = () => {
 
         {/* Chat Interface */}
         <div className="w-full">
-          <div className={`glass-panel p-6 ${
-            isAdvancedMode ? `${themeClasses.border} ${themeClasses.bg}` : ''
+          <div className={`glass-panel p-6 transition-all duration-500 ${
+            isAdvancedMode 
+              ? `${themeClasses.border} ${themeClasses.bg} animate-[premium-burn_2s_ease-in-out_infinite] shadow-[0_0_30px_hsl(160_60%_45%/0.6)]` 
+              : ''
           }`}>
             {/* Messages */}
             <div className="h-96 overflow-y-auto mb-4 space-y-4">

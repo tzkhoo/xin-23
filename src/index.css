@@ -44,10 +44,10 @@
     --advanced-dark: 160 70% 35%; /* Dark emerald */
     --advanced-foreground: 0 0% 98%;
     
-    /* Parent Mode Orange */
-    --parent: 25 95% 55%; /* Orange for parents */
-    --parent-light: 25 85% 65%; /* Light orange */
-    --parent-dark: 25 100% 45%; /* Dark orange */
+    /* Parent Mode Yellow */
+    --parent: 45 95% 55%; /* Yellow for parents */
+    --parent-light: 45 85% 65%; /* Light yellow */
+    --parent-dark: 45 100% 45%; /* Dark yellow */
     --parent-foreground: 0 0% 98%;
     
     /* RM Mode Blue */
@@ -78,8 +78,8 @@
     --sidebar-ring: 343 75% 43%;
 
     /* Gradients */
-    --gradient-nebula: linear-gradient(135deg, hsl(220 15% 13%), hsl(0 0% 20%));
-    --gradient-nebula-glow: radial-gradient(circle at 50% 50%, hsl(343 75% 43% / 0.3) 0%, transparent 70%);
+    --gradient-nebula: linear-gradient(135deg, hsl(220 15% 13%), hsl(240 20% 15%));
+    --gradient-nebula-glow: radial-gradient(circle at 50% 50%, hsl(270 50% 30% / 0.2) 0%, transparent 70%);
     --gradient-glass: linear-gradient(135deg, hsl(0 0% 100% / 0.1), hsl(0 0% 100% / 0.05));
     --gradient-red-glow: radial-gradient(circle, hsl(343 85% 55% / 0.4) 0%, transparent 70%);
     
@@ -197,5 +197,21 @@
   @keyframes pulse-glow {
     0%, 100% { box-shadow: var(--shadow-glow); }
     50% { box-shadow: 0 0 60px hsl(343 75% 43% / 0.5); }
+  }
+  
+  @keyframes premium-burn {
+    0%, 100% { 
+      box-shadow: 0 0 20px hsl(160 60% 45% / 0.5), 0 0 40px hsl(160 60% 45% / 0.3), inset 0 0 20px hsl(160 60% 45% / 0.1);
+      border-color: hsl(160 60% 45% / 0.6);
+    }
+    50% { 
+      box-shadow: 0 0 30px hsl(160 60% 45% / 0.8), 0 0 60px hsl(160 60% 45% / 0.5), inset 0 0 30px hsl(160 60% 45% / 0.2);
+      border-color: hsl(160 60% 45% / 0.9);
+    }
+  }
+  
+  @keyframes float-text {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
   }
 }
