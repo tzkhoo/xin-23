@@ -374,14 +374,14 @@ export const ChatInterface = () => {
                     />
                   ))}
                   {/* Bottom particles (more intense) */}
-                  {[...Array(10)].map((_, i) => (
+                  {[...Array(20)].map((_, i) => (
                     <div
                       key={`bottom-${i}`}
                       className="particle particle-bottom"
                       style={{
-                        left: `${10 + i * 8}%`,
+                        left: `${5 + i * 4.5}%`,
                         bottom: '0px',
-                        animationDelay: `${i * 0.2}s`,
+                        animationDelay: `${i * 0.1}s`,
                         animationDuration: `${1.5 + Math.random() * 0.3}s`
                       }}
                     />
@@ -408,7 +408,7 @@ export const ChatInterface = () => {
                           {message.isUser ? (
                             <User className={`w-4 h-4 ${themeClasses.foreground}`} />
                           ) : (
-                            <Bot className={`w-4 h-4 ${themeClasses.foreground} ${isAdvancedMode ? 'glow-effect' : ''}`} />
+                            <Bot className={`w-4 h-4 ${themeClasses.foreground}`} />
                           )}
                         </div>
                         
@@ -526,20 +526,31 @@ const PremiumUserTypeSlider = ({ userType, setUserType }: { userType: number, se
     { id: 2, label: 'Relation Manager', icon: Users, shortLabel: ['Relation', 'Manager'] }
   ];
 
+  const getSliderBackground = (activeType: number) => {
+    switch(activeType) {
+      case 0:
+        return 'linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)))';
+      case 1:
+        return 'linear-gradient(135deg, hsl(var(--parent)), hsl(var(--parent-light)))';
+      case 2:
+        return 'linear-gradient(135deg, hsl(var(--rm)), hsl(var(--rm-light)))';
+      default:
+        return 'linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)))';
+    }
+  };
+
   return (
     <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
-      <div className="bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20 w-[322px]">
-        <div className="relative flex items-center h-16 rounded-full">
-          {/* Single sliding background that moves and changes color */}
+      <div className="glass-panel p-1 rounded-full" style={{ width: '300px' }}>
+        <div className="relative flex items-center h-12 rounded-full">
+          {/* Sliding background indicator */}
           <div 
-            className="absolute h-14 w-[104px] rounded-full transition-all duration-500 ease-out"
+            className="absolute h-10 w-[96px] rounded-full transition-all duration-500 ease-out shadow-lg"
             style={{ 
-              transform: `translateX(${userType * 104}px)`,
-              background: userType === 0 
-                ? 'linear-gradient(to right, hsl(var(--primary)), hsl(var(--primary-glow)))'
-                : userType === 1 
-                  ? 'linear-gradient(to right, hsl(var(--parent)), hsl(var(--parent-light)))'
-                  : 'linear-gradient(to right, hsl(var(--rm)), hsl(var(--rm-light)))'
+              left: '4px',
+              transform: `translateX(${userType * 96}px)`,
+              background: getSliderBackground(userType),
+              boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
             }}
           />
           
@@ -553,15 +564,16 @@ const PremiumUserTypeSlider = ({ userType, setUserType }: { userType: number, se
                 key={option.id}
                 onClick={() => setUserType(option.id)}
                 className={`
-                  relative z-10 flex flex-col items-center justify-center w-[104px] h-14 rounded-full transition-all duration-300
+                  relative z-10 flex flex-col items-center justify-center w-[96px] h-10 rounded-full 
+                  transition-all duration-300 text-xs
                   ${isActive 
-                    ? 'text-white font-semibold' 
-                    : 'text-white/70 hover:text-white/90'
+                    ? 'text-white font-semibold scale-105' 
+                    : 'text-white/70 hover:text-white/90 hover:scale-102'
                   }
                 `}
               >
-                <Icon className="w-3 h-3 mb-1" />
-                <div className="text-xs text-center leading-tight">
+                <Icon className="w-3 h-3 mb-0.5" />
+                <div className="text-[10px] text-center leading-none">
                   {option.shortLabel.map((line, index) => (
                     <div key={index}>{line}</div>
                   ))}
