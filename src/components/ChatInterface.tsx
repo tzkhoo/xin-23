@@ -540,13 +540,14 @@ const PremiumUserTypeSlider = ({ userType, setUserType }: { userType: number, se
 
   return (
     <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
-      <div className="bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20 max-w-[280px] w-fit">
-        <div className="relative flex rounded-full overflow-hidden">
+      <div className="bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20 w-[322px]">
+        <div className="relative flex rounded-full">
            {/* Sliding background indicator */}
            <div 
-             className={`absolute top-0 bottom-0 w-1/3 ${getSliderBg()} rounded-full transition-all duration-500 ease-out z-0`}
+             className={`absolute top-0 bottom-0 w-[33.333%] ${getSliderBg()} rounded-full transition-all duration-500 ease-out z-0`}
              style={{ 
-               transform: `translateX(${userType * 100}%)` 
+               transform: `translateX(${userType * 100}%)`,
+               willChange: 'transform'
              }}
            />
           
@@ -564,7 +565,7 @@ const PremiumUserTypeSlider = ({ userType, setUserType }: { userType: number, se
                 key={option.id}
                 onClick={() => setUserType(option.id)}
                 className={`
-                  relative z-10 flex flex-col items-center justify-center px-3 py-2 rounded-full transition-all duration-300 w-20 h-16
+                  relative z-10 flex flex-col items-center justify-center px-3 py-2 rounded-full transition-all duration-300 flex-1 h-16
                   ${isActive 
                     ? 'text-white font-semibold shadow-lg' 
                     : 'text-white/70 hover:text-white/90'
