@@ -347,40 +347,40 @@ export const ChatInterface = () => {
            }`}>
               {isAdvancedMode && (
                 <div className="advanced-particles">
-                  {/* Left side particles */}
-                  {[...Array(4)].map((_, i) => (
+                   {/* Left side particles */}
+                  {[...Array(6)].map((_, i) => (
                     <div
                       key={`left-${i}`}
                       className="particle particle-left"
                       style={{
-                        left: `${5 + i * 3}%`,
-                        top: `${20 + i * 15}%`,
+                        left: '0px',
+                        top: `${10 + i * 12}%`,
                         animationDelay: `${i * 0.4}s`,
                         animationDuration: `${2 + Math.random() * 0.5}s`
                       }}
                     />
                   ))}
                   {/* Right side particles */}
-                  {[...Array(4)].map((_, i) => (
+                  {[...Array(6)].map((_, i) => (
                     <div
                       key={`right-${i}`}
                       className="particle particle-right"
                       style={{
-                        right: `${5 + i * 3}%`,
-                        top: `${20 + i * 15}%`,
+                        right: '0px',
+                        top: `${10 + i * 12}%`,
                         animationDelay: `${i * 0.4}s`,
                         animationDuration: `${2 + Math.random() * 0.5}s`
                       }}
                     />
                   ))}
                   {/* Bottom particles (more intense) */}
-                  {[...Array(8)].map((_, i) => (
+                  {[...Array(10)].map((_, i) => (
                     <div
                       key={`bottom-${i}`}
                       className="particle particle-bottom"
                       style={{
-                        left: `${15 + i * 10}%`,
-                        bottom: '0%',
+                        left: `${10 + i * 8}%`,
+                        bottom: '0px',
                         animationDelay: `${i * 0.2}s`,
                         animationDuration: `${1.5 + Math.random() * 0.3}s`
                       }}

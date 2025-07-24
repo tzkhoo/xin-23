@@ -268,33 +268,33 @@
   
   @keyframes particle-fall-left {
     0% { 
-      transform: translateY(0px) translateX(0px) scale(1);
+      transform: translateY(-5px) translateX(5px) scale(1);
       opacity: 1;
     }
     100% { 
-      transform: translateY(30px) translateX(-15px) scale(0.3);
+      transform: translateY(35px) translateX(-20px) scale(0.3);
       opacity: 0;
     }
   }
   
   @keyframes particle-fall-right {
     0% { 
-      transform: translateY(0px) translateX(0px) scale(1);
+      transform: translateY(-5px) translateX(-5px) scale(1);
       opacity: 1;
     }
     100% { 
-      transform: translateY(30px) translateX(15px) scale(0.3);
+      transform: translateY(35px) translateX(20px) scale(0.3);
       opacity: 0;
     }
   }
   
   @keyframes particle-fall-bottom {
     0% { 
-      transform: translateY(0px) translateX(0px) scale(1);
+      transform: translateY(-5px) translateX(0px) scale(1);
       opacity: 1;
     }
     100% { 
-      transform: translateY(40px) translateX(5px) scale(0.2);
+      transform: translateY(45px) translateX(8px) scale(0.2);
       opacity: 0;
     }
   }
