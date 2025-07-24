@@ -20,7 +20,7 @@ export const ParentDashboard = () => {
       </div>
 
       {/* Access Control Panel */}
-      <Card className="border-parent/30 bg-parent/5">
+      <Card className="border-parent/30 bg-parent/20">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-parent">
             <Shield className="w-5 h-5" />
@@ -34,7 +34,7 @@ export const ParentDashboard = () => {
           
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {Object.entries(visibilitySettings).map(([key, value]) => (
-              <div key={key} className="flex items-center justify-between p-3 rounded-lg bg-glass border border-glass-border min-h-[60px]">
+              <div key={key} className="flex items-center justify-between p-3 rounded-lg bg-white/20 border border-parent/20 min-h-[60px]">
                 <div className="flex items-center gap-2 flex-1">
                   {value ? <Eye className="w-4 h-4 text-parent flex-shrink-0" /> : <EyeOff className="w-4 h-4 text-muted-foreground flex-shrink-0" />}
                   <span className="text-sm font-medium capitalize">{key.replace(/([A-Z])/g, ' $1')}</span>

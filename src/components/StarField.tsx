@@ -16,11 +16,28 @@ export const StarField = () => {
     const container = starsRef.current;
     const stars: Star[] = [];
 
-    // Generate random stars
+    // Generate random stars - more towards edges, less in center
     for (let i = 0; i < 80; i++) {
+      let x, y;
+      // Create bias towards edges (avoid center 40% area)
+      if (Math.random() > 0.3) {
+        // Edge placement
+        if (Math.random() > 0.5) {
+          x = Math.random() > 0.5 ? Math.random() * 30 : 70 + Math.random() * 30;
+          y = Math.random() * 100;
+        } else {
+          x = Math.random() * 100;
+          y = Math.random() > 0.5 ? Math.random() * 25 : 75 + Math.random() * 25;
+        }
+      } else {
+        // Some stars can still be in center but fewer
+        x = 30 + Math.random() * 40;
+        y = 25 + Math.random() * 50;
+      }
+      
       stars.push({
-        x: Math.random() * 100,
-        y: Math.random() * 100,
+        x,
+        y,
         delay: Math.random() * 3,
         isRed: Math.random() > 0.7, // 30% chance for red stars
       });

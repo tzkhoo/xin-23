@@ -24,7 +24,7 @@ export const RMDashboard = () => {
 
       {/* AI Features Overview */}
       <div className="grid md:grid-cols-4 gap-4">
-        <Card className="border-rm/30 bg-rm/5">
+        <Card className="border-rm/30 bg-rm/20">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm text-muted-foreground flex items-center gap-2">
               <Brain className="w-4 h-4 text-rm" />
@@ -37,7 +37,7 @@ export const RMDashboard = () => {
           </CardContent>
         </Card>
 
-        <Card className="border-rm/30 bg-rm/5">
+        <Card className="border-rm/30 bg-rm/20">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm text-muted-foreground flex items-center gap-2">
               <MessageSquare className="w-4 h-4 text-rm" />
@@ -50,7 +50,7 @@ export const RMDashboard = () => {
           </CardContent>
         </Card>
 
-        <Card className="border-rm/30 bg-rm/5">
+        <Card className="border-rm/30 bg-rm/20">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm text-muted-foreground flex items-center gap-2">
               <Mic className="w-4 h-4 text-rm" />
@@ -63,7 +63,7 @@ export const RMDashboard = () => {
           </CardContent>
         </Card>
 
-        <Card className="border-rm/30 bg-rm/5">
+        <Card className="border-rm/30 bg-rm/20">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm text-muted-foreground flex items-center gap-2">
               <Target className="w-4 h-4 text-rm" />
