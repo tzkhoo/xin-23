@@ -520,16 +520,13 @@ export const ChatInterface = () => {
 
 // Premium User Type Slider Component
 const PremiumUserTypeSlider = ({ userType, setUserType }: { userType: number, setUserType: (type: number) => void }) => {
-  const getUserIcon = (type: number) => {
-    switch(type) {
-      case 0: return Building2;
-      case 1: return Crown;
-      case 2: return Users;
-      default: return Building2;
-    }
-  };
+  const options = [
+    { id: 0, label: 'BOCHK Client', icon: Building2, shortLabel: ['BOCHK', 'Client'] },
+    { id: 1, label: 'Parents', icon: Crown, shortLabel: ['Parents'] },
+    { id: 2, label: 'Relation Manager', icon: Users, shortLabel: ['Relation', 'Manager'] }
+  ];
 
-  const getSliderBg = () => {
+  const getActiveColor = () => {
     switch(userType) {
       case 0: return 'bg-gradient-to-r from-primary to-primary-glow';
       case 1: return 'bg-gradient-to-r from-parent to-parent-light';
@@ -541,22 +538,17 @@ const PremiumUserTypeSlider = ({ userType, setUserType }: { userType: number, se
   return (
     <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
       <div className="bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20 w-[322px]">
-        <div className="relative flex rounded-full">
-           {/* Sliding background indicator */}
-           <div 
-             className={`absolute top-0 bottom-0 w-[33.333%] ${getSliderBg()} rounded-full transition-all duration-500 ease-out z-0`}
-             style={{ 
-               transform: `translateX(${userType * 100}%)`,
-               willChange: 'transform'
-             }}
-           />
+        <div className="relative flex items-center h-16 rounded-full">
+          {/* Sliding Background */}
+          <div 
+            className={`absolute h-14 w-[104px] rounded-full transition-transform duration-500 ease-out ${getActiveColor()}`}
+            style={{ 
+              transform: `translateX(${userType * 104}px)`
+            }}
+          />
           
-          {/* Option buttons */}
-          {[
-            { id: 0, label: 'BOCHK Client', icon: Building2 },
-            { id: 1, label: 'Parents', icon: Crown },
-            { id: 2, label: 'Relation Manager', icon: Users }
-          ].map((option) => {
+          {/* Navigation Options */}
+          {options.map((option) => {
             const Icon = option.icon;
             const isActive = userType === option.id;
             
@@ -565,27 +557,19 @@ const PremiumUserTypeSlider = ({ userType, setUserType }: { userType: number, se
                 key={option.id}
                 onClick={() => setUserType(option.id)}
                 className={`
-                  relative z-10 flex flex-col items-center justify-center px-3 py-2 rounded-full transition-all duration-300 flex-1 h-16
+                  relative z-10 flex flex-col items-center justify-center w-[104px] h-14 rounded-full transition-all duration-300
                   ${isActive 
-                    ? 'text-white font-semibold shadow-lg' 
+                    ? 'text-white font-semibold' 
                     : 'text-white/70 hover:text-white/90'
                   }
                 `}
               >
                 <Icon className="w-3 h-3 mb-1" />
-                <span className="text-xs text-center leading-tight">
-                  {option.id === 0 ? (
-                    <>
-                      <div>BOCHK</div>
-                      <div>Client</div>
-                    </>
-                  ) : option.id === 2 ? (
-                    <>
-                      <div>Relation</div>
-                      <div>Manager</div>
-                    </>
-                  ) : option.label}
-                </span>
+                <div className="text-xs text-center leading-tight">
+                  {option.shortLabel.map((line, index) => (
+                    <div key={index}>{line}</div>
+                  ))}
+                </div>
               </button>
             );
           })}
