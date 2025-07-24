@@ -526,24 +526,20 @@ const PremiumUserTypeSlider = ({ userType, setUserType }: { userType: number, se
     { id: 2, label: 'Relation Manager', icon: Users, shortLabel: ['Relation', 'Manager'] }
   ];
 
-  const getActiveColor = () => {
-    switch(userType) {
-      case 0: return 'bg-gradient-to-r from-primary to-primary-glow';
-      case 1: return 'bg-gradient-to-r from-parent to-parent-light';
-      case 2: return 'bg-gradient-to-r from-rm to-rm-light';
-      default: return 'bg-gradient-to-r from-primary to-primary-glow';
-    }
-  };
-
   return (
     <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
       <div className="bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20 w-[322px]">
         <div className="relative flex items-center h-16 rounded-full">
-          {/* Sliding Background */}
+          {/* Single sliding background that moves and changes color */}
           <div 
-            className={`absolute h-14 w-[104px] rounded-full transition-transform duration-500 ease-out ${getActiveColor()}`}
+            className="absolute h-14 w-[104px] rounded-full transition-all duration-500 ease-out"
             style={{ 
-              transform: `translateX(${userType * 104}px)`
+              transform: `translateX(${userType * 104}px)`,
+              background: userType === 0 
+                ? 'linear-gradient(to right, hsl(var(--primary)), hsl(var(--primary-glow)))'
+                : userType === 1 
+                  ? 'linear-gradient(to right, hsl(var(--parent)), hsl(var(--parent-light)))'
+                  : 'linear-gradient(to right, hsl(var(--rm)), hsl(var(--rm-light)))'
             }}
           />
           
