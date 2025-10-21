@@ -36,7 +36,7 @@ export const SECURITY_CONFIG = {
 
 // Webhook URLs configuration (move from hardcoded)
 export const WEBHOOK_ENDPOINTS = {
-  NORMAL_MODE: import.meta.env.VITE_NORMAL_WEBHOOK || 'https://skymilo2.app.n8n.cloud/webhook/b9ab99b4-ccf9-43ca-a406-3b14c47362ec',
+  NORMAL_MODE: import.meta.env.VITE_NORMAL_WEBHOOK || 'https://skymilo2.app.n8n.cloud/webhook-test/b9ab99b4-ccf9-43ca-a406-3b14c47362ec',
   ADVANCED_MODE: import.meta.env.VITE_ADVANCED_WEBHOOK || 'https://wonder3.app.n8n.cloud/webhook/ad30832c-1f6b-4293-8eec-85490817e62d',
 } as const;
 
