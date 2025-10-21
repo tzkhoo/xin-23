@@ -116,7 +116,7 @@ export const ChatInterface = () => {
       });
 
       // Use the production webhook URL with POST method
-      const response = await fetch('https://wonder1.app.n8n.cloud/webhook/b9ab99b4-ccf9-43ca-a406-3b14c47362ec', {
+      const response = await fetch('hhttps://skymilo2.app.n8n.cloud/webhook/b9ab99b4-ccf9-43ca-a406-3b14c47362ec', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
